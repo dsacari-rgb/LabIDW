@@ -17,22 +17,45 @@ function renderizarTareas() {
 
     tareas.forEach((tarea) => {
         const li = document.createElement('li');
-        li.className = 'list-group-item d-flex justify-content-between align-items-center';
+        li.className = `list-group-item d-flex justify-content-between align-items-center ${tarea.completada ? 'bg-light' : ''}`;
+        li.dataset.id = tarea.id;
         
         li.innerHTML = `
             <div>
-                <strong>${tarea.titulo}</strong> 
+                <span class="${tarea.completada ? 'tarea-completada fw-bold' : 'fw-bold'}">${tarea.titulo}</span>
                 <span class="badge bg-secondary ms-1">${tarea.curso}</span>
                 <small class="text-muted d-block">Entrega: ${tarea.fechaEntrega}</small>
             </div>
             <div>
-                <button class="btn btn-sm btn-danger">Eliminar</button>
+                <button class="btn btn-sm ${tarea.completada ? 'btn-warning' : 'btn-success'} me-1 btn-estado">
+                    ${tarea.completada ? 'Desmarcar' : 'Completar'}
+                </button>
+                <button class="btn btn-sm btn-danger btn-eliminar">Eliminar</button>
             </div>
         `;
 
         listaTareas.appendChild(li);
     });
 }
+
+listaTareas.addEventListener('click', (e) => {
+    const li = e.target.closest('li');
+    if (!li) return;
+
+    const idTarea = Number(li.dataset.id);
+
+    // Cambiar estado (completada / pendiente)
+    if (e.target.classList.contains('btn-estado')) {
+        tareas = tareas.map(t => t.id === idTarea ? { ...t, completada: !t.completada } : t);
+        renderizarTareas();
+    }
+
+    // Eliminar tarea
+    if (e.target.classList.contains('btn-eliminar')) {
+        tareas = tareas.filter(t => t.id !== idTarea);
+        renderizarTareas();
+    }
+});
 
 formTarea.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -61,13 +84,13 @@ formTarea.addEventListener('submit', (e) => {
 
     const nuevaTarea = {
         id: Date.now(),
-        titulo: titulo,
-        curso: curso,
+        titulo,
+        curso,
         fechaEntrega: fecha,
         completada: false
     };
 
     tareas.push(nuevaTarea);
     renderizarTareas();
-    formTarea.reset(); // Limpiar el formulario
+    formTarea.reset();
 });
