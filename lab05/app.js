@@ -4,18 +4,31 @@ const inputCurso = document.querySelector('#curso');
 const inputFecha = document.querySelector('#fecha');
 const divAlerta = document.querySelector('#alerta');
 const listaTareas = document.querySelector('#lista-tareas');
+const grupoFiltros = document.querySelector('#filtros');
 
-let tareas = [];
+let tareas = JSON.parse(localStorage.getItem('tareas_lab04')) || [];
+let filtroActual = 'todas';
 
+function guardarEnStorage() {
+    localStorage.setItem('tareas_lab04', JSON.stringify(tareas));
+}
+
+// Función para pintar tareas aplicando el filtro seleccionado
 function renderizarTareas() {
     listaTareas.innerHTML = '';
 
-    if (tareas.length === 0) {
-        listaTareas.innerHTML = `<li class="list-group-item text-center text-muted">No hay tareas agregadas.</li>`;
+    const tareasFiltradas = tareas.filter(tarea => {
+        if (filtroActual === 'pendientes') return !tarea.completada;
+        if (filtroActual === 'completadas') return tarea.completada;
+        return true;
+    });
+
+    if (tareasFiltradas.length === 0) {
+        listaTareas.innerHTML = `<li class="list-group-item text-center text-muted">No hay tareas para mostrar.</li>`;
         return;
     }
 
-    tareas.forEach((tarea) => {
+    tareasFiltradas.forEach((tarea) => {
         const li = document.createElement('li');
         li.className = `list-group-item d-flex justify-content-between align-items-center ${tarea.completada ? 'bg-light' : ''}`;
         li.dataset.id = tarea.id;
@@ -38,21 +51,30 @@ function renderizarTareas() {
     });
 }
 
+grupoFiltros.addEventListener('click', (e) => {
+    if (e.target.tagName === 'BUTTON') {
+        document.querySelectorAll('#filtros button').forEach(btn => btn.classList.remove('active'));
+        e.target.classList.add('active');
+        filtroActual = e.target.dataset.filtro;
+        renderizarTareas();
+    }
+});
+
 listaTareas.addEventListener('click', (e) => {
     const li = e.target.closest('li');
     if (!li) return;
 
     const idTarea = Number(li.dataset.id);
 
-    // Cambiar estado (completada / pendiente)
     if (e.target.classList.contains('btn-estado')) {
         tareas = tareas.map(t => t.id === idTarea ? { ...t, completada: !t.completada } : t);
+        guardarEnStorage();
         renderizarTareas();
     }
 
-    // Eliminar tarea
     if (e.target.classList.contains('btn-eliminar')) {
         tareas = tareas.filter(t => t.id !== idTarea);
+        guardarEnStorage();
         renderizarTareas();
     }
 });
@@ -91,6 +113,9 @@ formTarea.addEventListener('submit', (e) => {
     };
 
     tareas.push(nuevaTarea);
+    guardarEnStorage();
     renderizarTareas();
     formTarea.reset();
 });
+
+document.addEventListener('DOMContentLoaded', renderizarTareas);
