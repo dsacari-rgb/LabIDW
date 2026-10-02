@@ -3,7 +3,6 @@
     margin: 0;
     padding: 0;
 }
-
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #1e1e2f, #2d2b42);
@@ -14,7 +13,6 @@ body {
     align-items: center;
     padding: 20px;
 }
-
 .card {
     background-color: #252538;
     border-radius: 12px;
@@ -25,20 +23,17 @@ body {
     border: 1px solid #3d3b56;
     text-align: center;
 }
-
 h1 {
     color: #61dafb;
     margin-bottom: 15px;
     font-size: 1.8rem;
 }
-
 p {
     color: #b3b3cc;
     font-size: 1rem;
     line-height: 1.5;
     margin-bottom: 20px;
 }
-
 .badge {
     display: inline-block;
     background-color: #4caf50;
