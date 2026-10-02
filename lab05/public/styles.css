@@ -1,6 +1,50 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #ffffe3;
-    margin: 40px;
-    color: #090086;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1e1e2f, #2d2b42);
+    color: #feffdd;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.card {
+    background-color: #252538;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    border: 1px solid #3d3b56;
+    text-align: center;
+}
+
+h1 {
+    color: #61dafb;
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+}
+
+p {
+    color: #b3b3cc;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.badge {
+    display: inline-block;
+    background-color: #4caf50;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
 }
