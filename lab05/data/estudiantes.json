@@ -3,5 +3,10 @@
     "id": 1,
     "nombre": "Delisse Sacari",
     "carrera": "Ingeniería de Sistemas"
+  },
+  {
+    "nombre": "Jesús Sacari",
+    "profesión": "Estudiante de secundaria",
+    "id": 2
   }
 ]
