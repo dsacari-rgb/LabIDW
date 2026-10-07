@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "nombre": "Introducción al Desarrollo Web",
+    "codigo": "IDW001",
+    "creditos": 4
+  },
+  {
+    "id": 2,
+    "nombre": "Introducción desarrollo de Software I",
+    "codigo": "IDS002",
+    "creditos": 3
+  },
+  {
+    "id": 3,
+    "nombre": "Estructuras Discretas II",
+    "codigo": "EDI003",
+    "creditos": 4
+  }
+]
